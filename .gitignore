@@ -1,0 +1,11 @@
+*.out
+ffmpeg-7.0.1-amd64-static/
+__pycache__/
+*.wav
+*.7z
+*.gz
+*.zip
+development/
+caption_evaluation_tools/
+eval_audio/*.json
+*.npz

@@ -1,0 +1,10 @@
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there waves?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there waves?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there waves?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "eleven", "source": "clothoaqa_test", "question": "How many times does the water splash?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "nine", "source": "clothoaqa_test", "question": "How many times does the water splash?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "eleven", "source": "clothoaqa_test", "question": "How many times does the water splash?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the area dry?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the area dry?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the area dry?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound falling water?"}
