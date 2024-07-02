@@ -15,7 +15,8 @@ from sklearn.metrics import accuracy_score
 
 
 ds_collections = {
-    'clothoaqa': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/clothoaqa_eval.jsonl'}
+    'clothoaqa': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/clothoaqa_eval.jsonl'},
+    'layer_select_aqa': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/layer_select_aqa.jsonl'},
 }
 
 
@@ -85,6 +86,35 @@ class InferenceSampler(torch.utils.data.sampler.Sampler):
     def __len__(self):
         return len(self._local_indices)
 
+def calculate_merge_ratio(mem_reduce_rate ,merge_layer, schedule="none"):
+    # this function calculate merge ratio by memory reduce rate and schedule
+    model_layer_num = 32
+    assert merge_layer < model_layer_num
+
+
+    if schedule == "none":
+        # Calculate the maximum and minimum possible mem_reduce_rate for the given merge_layer
+        max_mem_reduce_rate = 1.0 - ((merge_layer + 1) / model_layer_num)
+        min_mem_reduce_rate = 0.0
+
+        # Check if the given mem_reduce_rate is within the possible range
+        if not (min_mem_reduce_rate <= mem_reduce_rate <= max_mem_reduce_rate):
+            raise ValueError(f"mem_reduce_rate of {mem_reduce_rate} is not possible for merge_layer {merge_layer}.")
+
+        # Calculate merge_ratio based on the provided equation for the 'none' schedule
+        merge_ratio = 1.0 - (model_layer_num - model_layer_num*mem_reduce_rate - (merge_layer+1)) / (model_layer_num - (merge_layer+1))
+        
+        # Ensure merge_ratio is within the range [0, 1]
+        if not (0.0 <= merge_ratio <= 1.0):
+            raise ValueError(f"Calculated merge_ratio of {merge_ratio} is out of bounds (0 to 1).")
+
+        return merge_ratio
+    elif schedule == "constant":
+        raise NotImplementedError
+    elif schedule == "decay":
+        raise NotImplementedError
+    else:
+        raise ValueError(f"schedule {schedule} is not supported")
 
 if __name__ == '__main__':
 
@@ -94,6 +124,14 @@ if __name__ == '__main__':
     parser.add_argument('--batch-size', type=int, default=1)
     parser.add_argument('--num-workers', type=int, default=1)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--merge-ratio', type=float, default=0.0)
+    parser.add_argument('--merge-layer', type=int, default=33)
+    parser.add_argument('--mem-reduce-rate', type=float, default=0.0)
+    parser.add_argument('--merge-method', type=str, default='weighted', choices=['weighted', 'average'])
+    parser.add_argument('--merge-schedule', type=str, default='none', choices=['none', 'constant', 'decay'])
+    parser.add_argument('--dump-feats', type=bool, default=False)
+    parser.add_argument('--dump-task', type=str, default=None)
+    parser.add_argument('--dump-feat-layer', type=int, default=33)
     args = parser.parse_args()
 
     torch.distributed.init_process_group(
@@ -107,8 +145,21 @@ if __name__ == '__main__':
 
     prompt = '<audio>{}</audio><|startofanalysis|><|en|><|question|>{}<|answer|>'
 
+    merge_ratio = args.merge_ratio
+    if args.mem_reduce_rate > 0:
+        # we will use mem_reduce_rate if it is provided
+        merge_ratio = calculate_merge_ratio(args.mem_reduce_rate, args.merge_layer, args.merge_schedule)
+        print(f"merge_ratio = {merge_ratio} given mem_reduce_rate: {args.mem_reduce_rate} and merge_layer: {args.merge_layer} and merge_schedule: {args.merge_schedule}")
+    
     model = AutoModelForCausalLM.from_pretrained(
-        args.checkpoint, device_map='cuda', trust_remote_code=True).eval()
+            args.checkpoint, device_map='cuda', trust_remote_code=True).eval()
+    model.transformer.set_fastadasp_params(merge_ratio, 
+                                            args.merge_layer, 
+                                            args.merge_method, 
+                                            args.merge_schedule, 
+                                            args.dump_feats,
+                                            args.dump_task,
+                                            args.dump_feat_layer)
 
     tokenizer = AutoTokenizer.from_pretrained(args.checkpoint,
                                               trust_remote_code=True)

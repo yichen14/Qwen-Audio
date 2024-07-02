@@ -11,6 +11,7 @@ import pathlib
 from typing import TYPE_CHECKING, Optional, Tuple, Union, Callable, List, Any, Generator, Dict
 import os
 import time
+import pickle
 
 import torch
 import torch.nn.functional as F
@@ -655,6 +656,10 @@ class QWenBlock(nn.Module):
         merge_ratio: Optional[float] = None, 
         merge_method: Optional[str] = None,
         schedule_method: Optional[str] = None,
+        merge_layer: Optional[int] = None,
+        save_feats: Optional[bool] = False,
+        dump_task: Optional[str] = None,
+        layer_id: Optional[int] = None,
     ):
         layernorm_output = self.ln_1(hidden_states)
 
@@ -702,6 +707,7 @@ class QWenBlock(nn.Module):
 
 
             h = torch.cat([h[:, :audio_pos[1], :], new_audio_h, h[:, audio_pos[2]:, :]], dim=1)
+            audio_pos[2] = audio_pos[1] + new_audio_h.shape[1]
             layernorm_input = h
             new_audio_seq_len = new_audio_h.shape[1]
             sq_len = h.shape[1]
@@ -719,12 +725,35 @@ class QWenBlock(nn.Module):
         mlp_output = self.mlp(layernorm_output)
         hidden_states = residual + mlp_output
 
+        # save feature for layer analysis
+        if save_feats and hidden_states.shape[1] > 1: # we just save the prefilling embedding
+            out = hidden_states
+            if dump_task is None:
+                raise ValueError("dump_task is not set for feature dump")
+            
+            print(f"Dumping features for task: {dump_task} on layer {layer_id}")
+
+            output_name = f"layer_{layer_id}_merge_{merge_layer}_output.pkl" if merge_layer < 32 else f"layer_{layer_id}_output.pkl"
+
+            feature_path = f"/ocean/projects/cis210027p/ylu9/Qwen-Audio/layer_selection/features/{dump_task}/{output_name}"
+
+            if os.path.exists(feature_path):
+                with open(feature_path, 'rb') as f:
+                    prev_output = pickle.load(f)
+                prev_output.append(out[:, audio_pos[1].tolist():audio_pos[-1].tolist(), :].to(torch.float32).cpu().detach().numpy())
+                with open(feature_path, 'wb') as f:
+                    pickle.dump(prev_output, f)
+            else:
+                with open(feature_path, 'wb') as f:
+                    pickle.dump([out[:, audio_pos[1].tolist():audio_pos[-1].tolist(), :].to(torch.float32).cpu().detach().numpy()], f)
+
+
         if use_cache:
             outputs = (hidden_states,) + outputs
         else:
             outputs = (hidden_states,) + outputs[1:]
 
-        return outputs, mask
+        return outputs, mask, audio_pos
 
 
 class QWenPreTrainedModel(PreTrainedModel):
@@ -818,10 +847,15 @@ class QWenModel(QWenPreTrainedModel):
         self.post_init()
 
         # fastadasp
-        self.merge_ratio = 0.1
-        self.merge_layer = 0
+        self.merge_ratio = 0.0
+        self.merge_layer = 33
         self.merge_method = "weighted"
         self.schedule_method = "none" # none, constant, decay
+
+        # params for feature dump (layer analysis)
+        self.dump_feats = False
+        self.dump_task = None
+        self.dump_feat_layer = 33
 
     def get_input_embeddings(self):
         return self.wte
@@ -835,15 +869,21 @@ class QWenModel(QWenPreTrainedModel):
         ntk_alpha = max(ntk_alpha, 1)
         return ntk_alpha
 
-    def set_fastadasp_params(self, merge_ratio, merge_layer, merge_method, schedule_method):
+    def set_fastadasp_params(self, merge_ratio, merge_layer, merge_method, schedule_method, dump_feats=False, dump_task=None, dump_feat_layer=33):
         self.merge_layer = merge_layer
         self.merge_ratio = merge_ratio
         self.merge_method = merge_method
         self.schedule_method = schedule_method
+        self.dump_feats = dump_feats
+        self.dump_task = dump_task
+        self.dump_feat_layer = dump_feat_layer
         print(f"Set fastadasp params: merge_ratio: {merge_ratio}, \n \
                 merge_layer: {merge_layer}, \n \
                 merge_method: {merge_method}, \n \
-                schedule_method: {schedule_method}")
+                schedule_method: {schedule_method}, \n \
+                dump_feats: {dump_feats}, \n \
+                dump_task: {dump_task}, \n \
+                dump_feat_layer: {dump_feat_layer}")
 
     def forward(
         self,
@@ -1027,7 +1067,11 @@ class QWenModel(QWenPreTrainedModel):
                     merge_ratio = self.merge_ratio
                     print(f"FastAdaSP: Merge layer: {i}, merge ratio: {merge_ratio}")
                 
-                outputs, attention_mask = block(
+                save_feats = False
+                if i == self.dump_feat_layer and self.dump_feats:
+                    save_feats = True
+                
+                outputs, attention_mask, audio_pos = block(
                     hidden_states,
                     layer_past=layer_past,
                     rotary_pos_emb_list=rotary_pos_emb_list,
@@ -1041,6 +1085,10 @@ class QWenModel(QWenPreTrainedModel):
                     merge_ratio=merge_ratio,
                     merge_method=self.merge_method,
                     schedule_method=self.schedule_method,
+                    merge_layer=self.merge_layer,
+                    save_feats=save_feats, 
+                    dump_task=self.dump_task,
+                    layer_id=i,
                 )
 
             hidden_states = outputs[0]
