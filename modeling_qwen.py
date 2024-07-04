@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING, Optional, Tuple, Union, Callable, List, Any, G
 import os
 import time
 import pickle
+import numpy as np
 
 import torch
 import torch.nn.functional as F
@@ -420,6 +421,8 @@ class QWenAttention(nn.Module):
         encoder_attention_mask: Optional[torch.FloatTensor] = None,
         output_attentions: Optional[bool] = True,
         use_cache: Optional[bool] = False,
+        ratio: Optional[float] = None,
+        audio_pos: Optional[torch.Tensor] = None,
     ):
         output_attentions = True # enable attention weights output for fastadasp
         mixed_x_layer = self.c_attn(hidden_states)
@@ -547,6 +550,43 @@ class QWenAttention(nn.Module):
 
         attn_output = self.c_proj(context_layer)
 
+        # ------------------------------------------------------------------------------------
+        # perform kv-evict (H2O)
+        perform_kv_evict = ratio > 0.0
+        if perform_kv_evict:
+            audio_len = audio_pos[0][-1] - audio_pos[0][1]
+            sys_len = attn_weight.shape[-1] - audio_len
+            bsz = attn_weight.shape[0]
+            current_scores_sum = attn_weight.sum(2) # (bs * heads, k-tokens)
+
+            current_scores_sum[:, :, :audio_pos[0][1]] = torch.finfo(current_scores_sum.dtype).max
+            current_scores_sum[:, :, audio_pos[0][2]:] = torch.finfo(current_scores_sum.dtype).max
+            heavy_budget = int(sys_len + ratio * audio_len)
+            # heavy_budget = int(ratio * current_scores_sum.shape[-1])
+            current_scores_sum = current_scores_sum.view(bsz * self.num_heads, -1)
+
+            _, keep_topk = current_scores_sum.topk(k = heavy_budget, dim = -1, largest = True, sorted = True)
+
+            new_key_states = torch.zeros(keep_topk.shape[0], heavy_budget, self.head_dim).to(key.device)
+            new_value_states = torch.zeros(keep_topk.shape[0], heavy_budget, self.head_dim).to(value.device)
+
+            old_keys = key.view(bsz * self.num_heads, -1, self.head_dim)
+            old_values = value.view(bsz * self.num_heads, -1, self.head_dim)
+
+            for i in range(keep_topk.shape[0]):
+                new_key_states[i] = old_keys[i,keep_topk[i],:].contiguous()
+                new_value_states[i] = old_values[i,keep_topk[i],:].contiguous()
+
+            new_key_states = new_key_states.view(bsz, self.num_heads, -1, self.head_dim).contiguous()
+            new_value_states = new_value_states.view(bsz, self.num_heads, -1, self.head_dim).contiguous()
+
+            new_key_states = new_key_states.transpose(1, 2).type_as(key)
+            new_value_states = new_value_states.transpose(1, 2).type_as(value)
+            
+            present = (new_key_states, new_value_states)
+            print(f"perform kv-evict, ratio: {ratio}, heavy_budget: {heavy_budget}")
+        # ------------------------------------------------------------------------------------
+
         outputs = (attn_output, present)
         if output_attentions:
             if (
@@ -557,6 +597,7 @@ class QWenAttention(nn.Module):
                 raise ValueError("Cannot output attentions while using flash-attn")
             else:
                 outputs += (attn_weight,)
+
 
         return outputs
 
@@ -598,44 +639,56 @@ class QWenBlock(nn.Module):
 
         self.mlp = QWenMLP(config)
 
-    def merge_hidden_states(self, hidden_states, cos_similarities, merge_ratio=0.0, weights=None):
+    def merge_hidden_states(self, hidden_states, cos_similarities, method, ratio=0.0, weights=None):
         if weights is not None:
             assert hidden_states.shape[1] == weights.shape[1] # seq_len should be same
             assert hidden_states.shape[0] == weights.shape[0] # batch_size should be same
-
+        
+        if method == "merge_ave":
+            weights = None
+        
         new_hidden_states = []
         orig_sq_len = hidden_states.shape[1]
 
-        if merge_ratio == 0.0:
+        if ratio == 0.0:
             return hidden_states
 
-        print(f"Merge by merge_ratio: {merge_ratio}")
-        if weights is not None:
-            print(f"Merge by weighted merge")
-        else:
-            print(f"Merge by average merge")
+        print(f"Merge by ratio: {ratio}, merge method: {method}")
 
         for i, hidden_state in enumerate(hidden_states):
-            merge_token_num = int(orig_sq_len * merge_ratio)
-            merge_indexes = torch.topk(cos_similarities[i], merge_token_num, dim=-1).indices
-            merge_indexes = merge_indexes.sort().values
+            merge_token_num = int(orig_sq_len * ratio)
+
+            if method == "random_merge":
+                index = torch.randperm(cos_similarities[i].shape[0])
+                merge_indexes = index[:merge_token_num].sort().values
+            else:
+                merge_indexes = torch.topk(cos_similarities[i], merge_token_num, dim=-1).indices
+                merge_indexes = merge_indexes.sort().values
 
             h = []
             idx = 0
             while idx < orig_sq_len:
-                weight = weights[i, idx] if weights is not None else 1.0
-                tmp = hidden_state[idx] * weight
-                count = weight
-                merged_indexes = []
-                while idx in merge_indexes:
-                    weight = weights[i, idx+1] if weights is not None else 1.0
-                    merged_indexes.append(idx)
-                    tmp.add_(hidden_state[idx + 1] * weight)
-                    idx += 1
-                    count += weight
-                tmp.mul_(1.0 / count)
-                h.append(tmp)
-                idx += 1     
+                if method == "atome":
+                    if idx in merge_indexes:
+                        h.append((hidden_state[idx] + hidden_state[idx + 1])/2.0)
+                        idx += 2
+                    else:
+                        h.append(hidden_state[idx])
+                        idx += 1
+                else:
+                    weight = weights[i, idx] if weights is not None else 1.0
+                    tmp = hidden_state[idx] * weight
+                    count = weight
+                    merged_indexes = []
+                    while idx in merge_indexes:
+                        weight = weights[i, idx+1] if weights is not None else 1.0
+                        merged_indexes.append(idx)
+                        tmp.add_(hidden_state[idx + 1] * weight)
+                        idx += 1
+                        count += weight
+                    tmp.mul_(1.0 / count)
+                    h.append(tmp)
+                    idx += 1     
 
             new_hidden_states.append(torch.stack(h))
         merged_h = torch.stack(new_hidden_states)
@@ -653,15 +706,19 @@ class QWenBlock(nn.Module):
         use_cache: Optional[bool] = False,
         output_attentions: Optional[bool] = False,
         audio_pos: Optional[torch.Tensor] = None,
-        merge_ratio: Optional[float] = None, 
-        merge_method: Optional[str] = None,
-        schedule_method: Optional[str] = None,
-        merge_layer: Optional[int] = None,
+        ratio: Optional[float] = None, 
+        method: Optional[str] = None,
+        schedule: Optional[str] = None,
+        perform_layer: Optional[int] = None,
         save_feats: Optional[bool] = False,
         dump_task: Optional[str] = None,
         layer_id: Optional[int] = None,
     ):
         layernorm_output = self.ln_1(hidden_states)
+
+        kv_evict_ratio = 0.0
+        if method == "kv_evict":
+            kv_evict_ratio = ratio
 
         attn_outputs = self.attn(
             layernorm_output,
@@ -671,7 +728,10 @@ class QWenBlock(nn.Module):
             head_mask=head_mask,
             use_cache=use_cache,
             output_attentions=output_attentions,
+            ratio=kv_evict_ratio,
+            audio_pos=audio_pos,
         )
+        orig_audio_pos = audio_pos
         attn_output = attn_outputs[0] # (bsz, seq_len, hidden_dim)
 
         outputs = attn_outputs[1:]
@@ -682,7 +742,7 @@ class QWenBlock(nn.Module):
         # ------------------------------------------------------------------------------------
         key_state = outputs[0][0] if use_cache else None
 
-        perform_tome = merge_ratio > 0.0 and layernorm_input.size(1) > 1 and use_cache and key_state is not None
+        perform_tome = ratio > 0.0 and layernorm_input.size(1) > 1 and use_cache and key_state is not None and method in ["atome", "random_merge", "merge_ave", "merge_weighted", "merge_kv_evict"]
 
         h = layernorm_input
         
@@ -692,10 +752,10 @@ class QWenBlock(nn.Module):
             orig_seq_len = audio_pos[-1] - audio_pos[1]
 
             tome_weights = None
-            perform_weighted_merge = (merge_method == "weighted")
+            perform_weighted_merge = (method != "atome" and method != "merge_ave") # only perform weighted merge for merge_weighted, merge_kv_evict, and random_merge
             if perform_weighted_merge:
                 tome_weights = outputs[1] # get attn weights
-                tome_weights = tome_weights[:, :, audio_pos[1]:audio_pos[-1], audio_pos[1]:audio_pos[-1]].sum(2)
+                tome_weights = tome_weights.sum(2)[:, :, audio_pos[1]:audio_pos[-1]]
                 tome_weights = tome_weights.sum(1)
 
             current_key = key_state[:, audio_pos[1]:audio_pos[-1], :, :] #(batch, audio_seq_len, n_heads, head_dim)
@@ -703,8 +763,7 @@ class QWenBlock(nn.Module):
             current_key = current_key.reshape(current_key.shape[0], current_key.shape[1], -1) #(batch, seq_len, hidden_dim)
             cos_similarities = F.cosine_similarity(current_key[:, :-1], current_key[:, 1:], dim=2) # (batch, seq_len - 1)
 
-            new_audio_h = self.merge_hidden_states(h[:, audio_pos[1]:audio_pos[-1], :], cos_similarities, merge_ratio, tome_weights)
-
+            new_audio_h = self.merge_hidden_states(h[:, audio_pos[1]:audio_pos[-1], :], cos_similarities, method, ratio, tome_weights)
 
             h = torch.cat([h[:, :audio_pos[1], :], new_audio_h, h[:, audio_pos[2]:, :]], dim=1)
             audio_pos[2] = audio_pos[1] + new_audio_h.shape[1]
@@ -719,12 +778,53 @@ class QWenBlock(nn.Module):
 
         # ------------------------------------------------------------------------------------
         
+        # baseline method (fastV): token eviction based on attention scores
+        perform_evict = ratio > 0.0 and layernorm_input.size(1) > 1 and use_cache and method in ["evicit", "random_evict"]
+        if perform_evict:
+            audio_pos = audio_pos[0] # skip handle batch decode now
+            start_time = time.time()
+            orig_seq_len = audio_pos[-1] - audio_pos[1]
+            print(f"Evict by eviction ratio: {ratio}, method: {method}")
+
+            # get attn weights
+            tome_weights = outputs[1] 
+            tome_weights = tome_weights.sum(2)[:, :, audio_pos[1]:audio_pos[-1]]
+            tome_weights = tome_weights.sum(1)
+            
+            evict_indexes = None
+            if method == "random_evict":
+                indices = []
+                for _ in range(tome_weights.shape[0]):
+                    index = torch.randperm(tome_weights.shape[1])
+                    indices.append(index[:int(tome_weights.shape[1] * ratio)].sort().values.unsqueeze(0))
+            
+                evict_indexes = torch.cat(indices,dim=0)
+            else:
+                _, evict_indexes = torch.topk(tome_weights, int(tome_weights.shape[1] * ratio), dim=1, largest=False) # smallest k tokens index to evict
+
+            mask = np.array([i not in evict_indexes for i in range(audio_pos[-1] - audio_pos[1])])
+
+            new_audio_h = h[:, audio_pos[1]:audio_pos[-1], :]
+            new_audio_h = new_audio_h[:, mask, :]
+            h = torch.cat([h[:, :audio_pos[1], :], new_audio_h, h[:, audio_pos[2]:, :]], dim=1)
+            audio_pos[2] = audio_pos[1] + new_audio_h.shape[1]
+            layernorm_input = h
+            new_audio_seq_len = new_audio_h.shape[1]
+            sq_len = h.shape[1]
+            mask = torch.full((1, 1, sq_len, sq_len), -0.0, device=h.device)
+
+            end_time = time.time()
+            print(f"original audio seq len: {orig_seq_len}, new audio seq len: {new_audio_seq_len}, actual eviction ratio: {1 - new_audio_seq_len/orig_seq_len}, perform eviction time: {end_time - start_time}")
+
+        # ------------------------------------------------------------------------------------
+
         layernorm_output = self.ln_2(layernorm_input)
 
         residual = layernorm_input
         mlp_output = self.mlp(layernorm_output)
         hidden_states = residual + mlp_output
 
+        # ------------------------------------------------------------------------------------
         # save feature for layer analysis
         if save_feats and hidden_states.shape[1] > 1: # we just save the prefilling embedding
             out = hidden_states
@@ -733,7 +833,7 @@ class QWenBlock(nn.Module):
             
             print(f"Dumping features for task: {dump_task} on layer {layer_id}")
 
-            output_name = f"layer_{layer_id}_merge_{merge_layer}_output.pkl" if merge_layer < 32 else f"layer_{layer_id}_output.pkl"
+            output_name = f"layer_{layer_id}_merge_{perform_layer}_output.pkl" if perform_layer < 32 else f"layer_{layer_id}_output.pkl"
 
             feature_path = f"/ocean/projects/cis210027p/ylu9/Qwen-Audio/layer_selection/features/{dump_task}/{output_name}"
 
@@ -746,14 +846,14 @@ class QWenBlock(nn.Module):
             else:
                 with open(feature_path, 'wb') as f:
                     pickle.dump([out[:, audio_pos[1].tolist():audio_pos[-1].tolist(), :].to(torch.float32).cpu().detach().numpy()], f)
-
+        # ------------------------------------------------------------------------------------
 
         if use_cache:
             outputs = (hidden_states,) + outputs
         else:
             outputs = (hidden_states,) + outputs[1:]
 
-        return outputs, mask, audio_pos
+        return outputs, mask, orig_audio_pos
 
 
 class QWenPreTrainedModel(PreTrainedModel):
@@ -846,11 +946,11 @@ class QWenModel(QWenPreTrainedModel):
 
         self.post_init()
 
-        # fastadasp
-        self.merge_ratio = 0.0
-        self.merge_layer = 33
-        self.merge_method = "weighted"
-        self.schedule_method = "none" # none, constant, decay
+        # fastadasp param
+        self.perform_layer = 33
+        self.ratio = 0.0
+        self.method = None
+        self.schedule = "none"
 
         # params for feature dump (layer analysis)
         self.dump_feats = False
@@ -869,18 +969,19 @@ class QWenModel(QWenPreTrainedModel):
         ntk_alpha = max(ntk_alpha, 1)
         return ntk_alpha
 
-    def set_fastadasp_params(self, merge_ratio, merge_layer, merge_method, schedule_method, dump_feats=False, dump_task=None, dump_feat_layer=33):
-        self.merge_layer = merge_layer
-        self.merge_ratio = merge_ratio
-        self.merge_method = merge_method
-        self.schedule_method = schedule_method
+    def set_fastadasp_params(self, ratio, perform_layer, method, schedule, dump_feats=False, dump_task=None, dump_feat_layer=33):
+        self.perform_layer = perform_layer
+        self.ratio = ratio
+        self.method = method
+        self.schedule = schedule
         self.dump_feats = dump_feats
         self.dump_task = dump_task
         self.dump_feat_layer = dump_feat_layer
-        print(f"Set fastadasp params: merge_ratio: {merge_ratio}, \n \
-                merge_layer: {merge_layer}, \n \
-                merge_method: {merge_method}, \n \
-                schedule_method: {schedule_method}, \n \
+        print(f"Set fastadasp params: \n \
+                ratio: {ratio}, \n \
+                perform_layer: {perform_layer}, \n \
+                method: {method}, \n \
+                schedule: {schedule}, \n \
                 dump_feats: {dump_feats}, \n \
                 dump_task: {dump_task}, \n \
                 dump_feat_layer: {dump_feat_layer}")
@@ -1062,10 +1163,25 @@ class QWenModel(QWenPreTrainedModel):
                     encoder_attention_mask,
                 )
             else:
-                merge_ratio = 0.0
-                if i == self.merge_layer and hidden_states.size(1) > 1:
-                    merge_ratio = self.merge_ratio
-                    print(f"FastAdaSP: Merge layer: {i}, merge ratio: {merge_ratio}")
+                ratio = 0.0
+                method = self.method
+                if i == self.perform_layer and hidden_states.size(1) > 1:
+                    ratio = self.ratio
+
+                if i > self.perform_layer and self.schedule == "decay" and hidden_states.size(1) > 1:
+                    ratio = self.ratio * (1 - (i - self.perform_layer) / (31 - self.perform_layer))
+
+                if i > self.perform_layer and self.schedule == "constant" and hidden_states.size(1) > 1:
+                    ratio = self.ratio
+
+                if i > self.perform_layer and self.method == "kv_evict" and hidden_states.size(1) > 1:
+                    ratio = self.ratio
+
+                if i > self.perform_layer and self.method == "merge_kv_evict" and hidden_states.size(1) > 1:
+                    ratio = self.ratio
+                    method = "kv_evict" # set method to kv_evict after first merge
+                if ratio > 0.0:
+                    print(f"FastAdaSP: perform layer: {i}, ratio: {ratio}, method: {method}, schedule: {self.schedule}")
                 
                 save_feats = False
                 if i == self.dump_feat_layer and self.dump_feats:
@@ -1082,10 +1198,10 @@ class QWenModel(QWenPreTrainedModel):
                     use_cache=use_cache,
                     output_attentions=output_attentions,
                     audio_pos=audio_pos,
-                    merge_ratio=merge_ratio,
-                    merge_method=self.merge_method,
-                    schedule_method=self.schedule_method,
-                    merge_layer=self.merge_layer,
+                    ratio=ratio,
+                    method=method,
+                    schedule=self.schedule,
+                    perform_layer=self.perform_layer,
                     save_feats=save_feats, 
                     dump_task=self.dump_task,
                     layer_id=i,

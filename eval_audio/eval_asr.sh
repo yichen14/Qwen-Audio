@@ -12,10 +12,11 @@ do
         --dataset $ds \
         --batch-size 1 \
         --num-workers 1 \
-        --mem-reduce-rate 0.0 \
-        --merge-ratio 0.5 \
-        --merge-layer 14 \
-        --dump-feats true \
+        --mem-reduce-rate 0.5 \
+        --perform-layer 9 \
+        --method merge_kv_evict \
+        --schedule decay \
+        --dump-feats false \
         --dump-task asr \
         --dump-feat-layer 31 
 done

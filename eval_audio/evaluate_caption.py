@@ -22,6 +22,7 @@ PUNCS = '!,.?;:'
 ds_collections = {
     'clotho': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/clotho/clotho_eval.jsonl', 'style': 'clotho'}, # style: clotho, audiocaps, or plain
     'layer_select_aac': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/clotho/layer_select_aac.jsonl', 'style': 'plain'}, 
+    'layer_select_aac_2': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/clotho/layer_select_aac_2.jsonl', 'style': 'clotho'}, 
 }
 
 

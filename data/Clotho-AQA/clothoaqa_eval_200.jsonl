@@ -1,0 +1,200 @@
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there waves?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there waves?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there waves?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "eleven", "source": "clothoaqa_test", "question": "How many times does the water splash?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "nine", "source": "clothoaqa_test", "question": "How many times does the water splash?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "eleven", "source": "clothoaqa_test", "question": "How many times does the water splash?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the area dry?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the area dry?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the area dry?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound falling water?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound falling water?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the sound falling water?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is water flowing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is water flowing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is water flowing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "water", "source": "clothoaqa_test", "question": "What is flowing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "stone", "source": "clothoaqa_test", "question": "What is flowing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/river_mouth3.wav", "gt": "water", "source": "clothoaqa_test", "question": "What is flowing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "eleven", "source": "clothoaqa_test", "question": "How many times does the wood make a sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "six", "source": "clothoaqa_test", "question": "How many times does the wood make a sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "seventeen", "source": "clothoaqa_test", "question": "How many times does the wood make a sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is a dog barking?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a dog barking?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is a dog barking?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is that the sound of wood?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is that the sound of wood?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is that the sound of wood?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sample taking place inside a wood building?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sample taking place inside a wood building?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sample taking place inside a wood building?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound caused by pressure from/against wood?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound caused by pressure from/against wood?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound caused by pressure from/against wood?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "woodpecker", "source": "clothoaqa_test", "question": "What type of animal is making the light sound in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "bird", "source": "clothoaqa_test", "question": "What type of animal is making the light sound in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creaking pier.wav", "gt": "bird", "source": "clothoaqa_test", "question": "What type of animal is making the light sound in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is liquid present?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is liquid present?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is liquid present?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is something solid falling?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is something solid falling?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is something solid falling?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there a lighting strike?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there a lighting strike?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there a lighting strike?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is water being poured?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is water being poured?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is water being poured?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "water", "source": "clothoaqa_test", "question": "What is being poured?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "water", "source": "clothoaqa_test", "question": "What is being poured?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "liquid", "source": "clothoaqa_test", "question": "What is being poured?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "food", "source": "clothoaqa_test", "question": "What is being prepared?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "coffee", "source": "clothoaqa_test", "question": "What is being prepared?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Mug in sink.wav", "gt": "drink", "source": "clothoaqa_test", "question": "What is being prepared?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a lullaby playing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a lullaby playing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a lullaby playing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is only one person around?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is only one person around?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is only one person around?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this a triumphant tune?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this a triumphant tune?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this a triumphant tune?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this outside?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this outside?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this outside?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "cymbal", "source": "clothoaqa_test", "question": "What are the staccato sounding instruments heard at the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "drum", "source": "clothoaqa_test", "question": "What are the staccato sounding instruments heard at the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "drums", "source": "clothoaqa_test", "question": "What are the staccato sounding instruments heard at the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "band", "source": "clothoaqa_test", "question": "Where is the music coming from?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "band", "source": "clothoaqa_test", "question": "Where is the music coming from?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20061124ParadeCHS.wav", "gt": "street", "source": "clothoaqa_test", "question": "Where is the music coming from?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the sound of the water remain steady?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the sound of the water remain steady?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the sound of the water remain steady?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is someone flushing the toilet?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is someone flushing the toilet?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is someone flushing the toilet?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there any thunder?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there any thunder?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there any thunder?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there liquid?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there liquid?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there liquid?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "faucet", "source": "clothoaqa_test", "question": "What is open?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "faucet", "source": "clothoaqa_test", "question": "What is open?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "window", "source": "clothoaqa_test", "question": "What is open?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "hail", "source": "clothoaqa_test", "question": "what type of precipitation causes this sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "rain", "source": "clothoaqa_test", "question": "what type of precipitation causes this sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Sizzling Bacon.wav", "gt": "rain", "source": "clothoaqa_test", "question": "what type of precipitation causes this sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Can thunder be heard in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Can thunder be heard in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Can thunder be heard in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does it sound like it's raining hard there?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does it sound like it's raining hard there?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does it sound like it's raining hard there?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the rain stop at any point?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the rain stop at any point?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the rain stop at any point?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "one", "source": "clothoaqa_test", "question": "How many strikes of lightning can be heard?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "zero", "source": "clothoaqa_test", "question": "How many strikes of lightning can be heard?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "one", "source": "clothoaqa_test", "question": "How many strikes of lightning can be heard?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "one", "source": "clothoaqa_test", "question": "How many times does it thunder?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "one", "source": "clothoaqa_test", "question": "How many times does it thunder?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "once", "source": "clothoaqa_test", "question": "How many times does it thunder?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the rain hitting an umbrella?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the rain hitting an umbrella?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Rain and Storm.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the rain hitting an umbrella?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is a duck quacking?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is a duck quacking?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a duck quacking?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is someone throwing rocks in the fountain?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is someone throwing rocks in the fountain?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is someone throwing rocks in the fountain?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the fountain running?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the fountain running?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the fountain running?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound constant?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound constant?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the sound constant?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "child", "source": "clothoaqa_test", "question": "What is running?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "brook", "source": "clothoaqa_test", "question": "What is running?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "water", "source": "clothoaqa_test", "question": "What is running?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "running", "source": "clothoaqa_test", "question": "What is the water doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "running", "source": "clothoaqa_test", "question": "What is the water doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20160718_fountain.03.wav", "gt": "flowing", "source": "clothoaqa_test", "question": "What is the water doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Are humans heard?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Are humans heard?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Are humans heard?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Can a motor cycle be heard in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Can a motor cycle be heard in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Can a motor cycle be heard in the background?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the buzzing intensify?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the buzzing intensify?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the buzzing intensify?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this recorded out doors?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this recorded out doors?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this recorded out doors?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "fly", "source": "clothoaqa_test", "question": "What is buzzing around the microphone?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "bee", "source": "clothoaqa_test", "question": "What is buzzing around the microphone?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "bee", "source": "clothoaqa_test", "question": "What is buzzing around the microphone?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "bees", "source": "clothoaqa_test", "question": "What is buzzing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "bees", "source": "clothoaqa_test", "question": "What is buzzing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Inner City Bees.wav", "gt": "flies", "source": "clothoaqa_test", "question": "What is buzzing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Do the birds get louder as the video continues?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Do the birds get louder as the video continues?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "no", "source": "clothoaqa_test", "question": "Do the birds get louder as the video continues?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "one", "source": "clothoaqa_test", "question": "How many different types of animals are here?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "one", "source": "clothoaqa_test", "question": "How many different types of animals are here?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "birds", "source": "clothoaqa_test", "question": "How many different types of animals are here?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the bird singing tranquil?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the bird singing tranquil?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is the bird singing tranquil?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the person at a loud house party?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the person at a loud house party?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is the person at a loud house party?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is this a desert?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is this a desert?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is this a desert?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "chirping", "source": "clothoaqa_test", "question": "What are the birds doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "sound", "source": "clothoaqa_test", "question": "What are the birds doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/forest_ambience_chepachet_spring_1.wav", "gt": "singing", "source": "clothoaqa_test", "question": "What are the birds doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are the footsteps on a waxed floor?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "no", "source": "clothoaqa_test", "question": "Are the footsteps on a waxed floor?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "no", "source": "clothoaqa_test", "question": "Are the footsteps on a waxed floor?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the steady, dry shuffling sound change near the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the steady, dry shuffling sound change near the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Does the steady, dry shuffling sound change near the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is it walking that is causing the dry shuffling sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is it walking that is causing the dry shuffling sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is it walking that is causing the dry shuffling sound?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there someone moving around?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there someone moving around?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there someone moving around?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "grass", "source": "clothoaqa_test", "question": "What are they walking on?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "leaves", "source": "clothoaqa_test", "question": "What are they walking on?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "grass", "source": "clothoaqa_test", "question": "What are they walking on?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "debris", "source": "clothoaqa_test", "question": "What is being moved around and picked up near the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "paper", "source": "clothoaqa_test", "question": "What is being moved around and picked up near the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Arch Leaf.wav", "gt": "hay", "source": "clothoaqa_test", "question": "What is being moved around and picked up near the end?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are the birds chirping?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are the birds chirping?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are the birds chirping?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there multiple birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there multiple birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Are there multiple birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a car starting?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a car starting?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is a car starting?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there other animals other than birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "yes", "source": "clothoaqa_test", "question": "Is there other animals other than birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "no", "source": "clothoaqa_test", "question": "Is there other animals other than birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "chirping", "source": "clothoaqa_test", "question": "what are the birds doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "singing", "source": "clothoaqa_test", "question": "what are the birds doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "singing", "source": "clothoaqa_test", "question": "what are the birds doing?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "small", "source": "clothoaqa_test", "question": "What size are the birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "small", "source": "clothoaqa_test", "question": "What size are the birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/20130326_caged.birds.01.wav", "gt": "small", "source": "clothoaqa_test", "question": "What size are the birds?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creacking Oak 6bft  SHORT 130418_00.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the rushing water sound stop at any time?"}
+{"audio": "/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/Clotho-AQA/audio_files/Creacking Oak 6bft  SHORT 130418_00.wav", "gt": "no", "source": "clothoaqa_test", "question": "Does the rushing water sound stop at any time?"}

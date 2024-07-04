@@ -12,13 +12,13 @@ do
         --nproc_per_node 1 --nnodes 1 \
         evaluate_caption.py \
         --checkpoint Qwen/Qwen-Audio \
-        --dataset "layer_select_aac" \
+        --dataset "layer_select_aac_2" \
         --batch-size 1 \
         --num-workers 1 \
         --mem-reduce-rate 0.0 \
         --merge-ratio 0.5 \
         --merge-layer $merge_layer \
         --dump-feats true \
-        --dump-task aac \
+        --dump-task aac_2 \
         --dump-feat-layer 31 
 done

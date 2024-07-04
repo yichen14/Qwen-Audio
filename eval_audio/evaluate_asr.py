@@ -13,12 +13,16 @@ import torch
 
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+from utils import parse_args, calculate_ratio
+
 PUNCS = '!,.?;:'
 
 #
 ds_collections = {
     'librispeech': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/asr/librispeech_test_eval_200.jsonl', 'language': 'en'},
     'layer_select_asr': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/asr/layer_select_asr.jsonl', 'language': 'en'},
+    'layer_select_asr_2': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/asr/layer_select_asr_2.jsonl', 'language': 'en'},
     # 'aishell1': {'path': 'data/asr/aishell1_eval.jsonl', 'language': 'zh'},
     # 'aishell2': {'path': 'data/asr/aishell2_eval.jsonl', 'language': 'zh'}
 }
@@ -157,22 +161,9 @@ def calculate_merge_ratio(mem_reduce_rate ,merge_layer, schedule="none"):
 
 
 if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--checkpoint', type=str, default='')
-    parser.add_argument('--dataset', type=str, default='')
-    parser.add_argument('--batch-size', type=int, default=1)
-    parser.add_argument('--num-workers', type=int, default=1)
-    parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--merge-ratio', type=float, default=0.0)
-    parser.add_argument('--merge-layer', type=int, default=33)
-    parser.add_argument('--mem-reduce-rate', type=float, default=0.0)
-    parser.add_argument('--merge-method', type=str, default='weighted', choices=['weighted', 'average'])
-    parser.add_argument('--merge-schedule', type=str, default='none', choices=['none', 'constant', 'decay'])
-    parser.add_argument('--dump-feats', type=bool, default=False)
-    parser.add_argument('--dump-task', type=str, default=None)
-    parser.add_argument('--dump-feat-layer', type=int, default=33)
-    args = parser.parse_args()
+    args = parse_args()
+    
+    print(f"args: {args}")
 
     torch.distributed.init_process_group(
         backend='nccl',
@@ -182,21 +173,20 @@ if __name__ == '__main__':
 
     torch.cuda.set_device(int(os.getenv('LOCAL_RANK', 0)))
 
-
     prompt = '<audio>{}</audio><|startoftranscript|><|{}|><|transcribe|><|{}|><|notimestamps|><|wo_itn|>'
 
-    merge_ratio = args.merge_ratio
+    ratio = args.ratio # if mem_reduce_rate is not provided, we use ratio from args directly
     if args.mem_reduce_rate > 0:
         # we will use mem_reduce_rate if it is provided
-        merge_ratio = calculate_merge_ratio(args.mem_reduce_rate, args.merge_layer, args.merge_schedule)
-        print(f"merge_ratio = {merge_ratio} given mem_reduce_rate: {args.mem_reduce_rate} and merge_layer: {args.merge_layer} and merge_schedule: {args.merge_schedule}")
+        ratio = calculate_ratio(args.mem_reduce_rate, args.method, args.perform_layer, args.schedule)
+        print(f"ratio = {ratio} given mem_reduce_rate: {args.mem_reduce_rate} and perform_layer: {args.perform_layer} and method: {args.method} and schedule: {args.schedule}")
     
     model = AutoModelForCausalLM.from_pretrained(
             args.checkpoint, device_map='cuda', trust_remote_code=True).eval()
-    model.transformer.set_fastadasp_params(merge_ratio, 
-                                            args.merge_layer, 
-                                            args.merge_method, 
-                                            args.merge_schedule, 
+    model.transformer.set_fastadasp_params(ratio, 
+                                            args.perform_layer, 
+                                            args.method, 
+                                            args.schedule, 
                                             args.dump_feats,
                                             args.dump_task,
                                             args.dump_feat_layer)
@@ -286,7 +276,7 @@ if __name__ == '__main__':
                 'audio_path': audio_path,
             })
         time_prefix = time.strftime('%y%m%d%H%M%S', time.localtime())
-        results_file = f'{args.dataset}_{time_prefix}.json'
+        results_file = f'exps/{args.dataset}_{args.mem_reduce_rate}_{args.method}_{args.schedule}_{args.perform_layer}_{time_prefix}.json'
         json.dump(results, open(results_file, 'w'))
         results_dict = {}
         for item in tqdm(results):
