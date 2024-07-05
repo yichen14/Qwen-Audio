@@ -15,7 +15,7 @@ do
         --mem-reduce-rate 0.5 \
         --perform-layer 9 \
         --method merge_kv_evict \
-        --schedule decay \
+        --schedule none \
         --dump-feats false \
         --dump-task asr \
         --dump-feat-layer 31 

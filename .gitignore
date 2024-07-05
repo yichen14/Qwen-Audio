@@ -10,3 +10,4 @@ caption_evaluation_tools/
 eval_audio/*.json
 *.npz
 *.pkl
+exps/
