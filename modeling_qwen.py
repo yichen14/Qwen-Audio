@@ -664,6 +664,17 @@ class QWenBlock(nn.Module):
             else:
                 merge_indexes = torch.topk(cos_similarities[i], merge_token_num, dim=-1).indices
                 merge_indexes = merge_indexes.sort().values
+            
+            # optimization:
+            merge_ranges = []
+            left = 0
+            for right in range(1, len(merge_indexes)):
+                if merge_indexes[right] - merge_indexes[right-1] > 1:
+                    merge_ranges.append((left, right+1))
+                    left = right
+    
+                
+
 
             h = []
             idx = 0

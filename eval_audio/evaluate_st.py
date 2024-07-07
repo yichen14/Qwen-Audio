@@ -222,6 +222,8 @@ if __name__ == '__main__':
             refs, hyps = [], []
             results_list = results_dict[source]
             for result in results_list:
+                if len(result['gt']) == 0 or len(result['response']) == 0:
+                    continue
                 gt = result["gt"]
                 response = result["response"]
                 refs.append(gt)
