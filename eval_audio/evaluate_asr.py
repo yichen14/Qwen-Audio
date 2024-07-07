@@ -147,7 +147,8 @@ if __name__ == '__main__':
         # we will use mem_reduce_rate if it is provided
         ratio = calculate_ratio(args.mem_reduce_rate, args.method, args.perform_layer, args.schedule)
         print(f"ratio = {ratio} given mem_reduce_rate: {args.mem_reduce_rate} and perform_layer: {args.perform_layer} and method: {args.method} and schedule: {args.schedule}")
-    
+        args.ratio = ratio
+        
     model = AutoModelForCausalLM.from_pretrained(
             args.checkpoint, device_map='cuda', trust_remote_code=True).eval()
     model.transformer.set_fastadasp_params(ratio, 

@@ -1182,7 +1182,7 @@ class QWenModel(QWenPreTrainedModel):
                     method = "kv_evict" # set method to kv_evict after first merge
                 if ratio > 0.0:
                     print(f"FastAdaSP: perform layer: {i}, ratio: {ratio}, method: {method}, schedule: {self.schedule}")
-                
+
                 save_feats = False
                 if i == self.dump_feat_layer and self.dump_feats:
                     save_feats = True

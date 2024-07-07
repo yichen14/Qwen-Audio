@@ -1,0 +1,5 @@
+{"audio": "/ocean/projects/cis210027p/shared/corpora/commonvoice/cv-corpus-4/en/clips/common_voice_en_699711.mp3", "gt": "她会没事的。", "source": "covost_v2_en_zh_test"}
+{"audio": "/ocean/projects/cis210027p/shared/corpora/commonvoice/cv-corpus-4/en/clips/common_voice_en_18132047.mp3", "gt": "皆大欢喜。", "source": "covost_v2_en_zh_test"}
+{"audio": "/ocean/projects/cis210027p/shared/corpora/commonvoice/cv-corpus-4/en/clips/common_voice_en_17263741.mp3", "gt": "是这个意思吗？", "source": "covost_v2_en_zh_test"}
+{"audio": "/ocean/projects/cis210027p/shared/corpora/commonvoice/cv-corpus-4/en/clips/common_voice_en_17893917.mp3", "gt": "新型贴片相比旧款更具微创效果，但仍可导致机能退化。", "source": "covost_v2_en_zh_test"}
+{"audio": "/ocean/projects/cis210027p/shared/corpora/commonvoice/cv-corpus-4/en/clips/common_voice_en_17561821.mp3", "gt": "Mozilla 打算如何处理“queue”和“cue”这类易混淆的字词呢？", "source": "covost_v2_en_zh_test"}

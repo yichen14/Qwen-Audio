@@ -49,7 +49,7 @@ def calculate_ratio(mem_reduce_rate, method, perform_layer, schedule="none") -> 
     assert perform_layer < model_layer_num
     
     if method == "merge_kv_evict":
-        return np.sqrt(1.0 - (model_layer_num - model_layer_num*mem_reduce_rate - (perform_layer+1)) / (model_layer_num - (perform_layer+1)))
+        return 1 - np.sqrt((((1 - mem_reduce_rate) * model_layer_num) - (perform_layer + 1)) / (model_layer_num - 1 - perform_layer))
 
     if method == "kv_evict" or method == "atome":
         perform_layer = 0

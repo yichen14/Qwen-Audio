@@ -10,11 +10,12 @@ import torch
 
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from utils import parse_args, calculate_ratio
 
 
 ds_collections = {
-    'covost2': {'path': 'data/st/covost2_eval.jsonl'},
-    'mustc': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/st/mustc_dev_clean_eval.jsonl'},
+    'covost2': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/st/covost2_eval.jsonl'},
+    'mustc': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/st/mustc_dev_clean_eval_10.jsonl'},
     'layer_select_st': {'path': '/ocean/projects/cis210027p/ylu9/Qwen-Audio/data/st/layer_select_st.jsonl'},
 }
 
@@ -65,8 +66,8 @@ class InferenceSampler(torch.utils.data.sampler.Sampler):
     def __init__(self, size):
         self._size = int(size)
         assert size > 0
-        self._rank = torch.distributed.get_rank()
-        self._world_size = torch.distributed.get_world_size()
+        self._rank = 0
+        self._world_size = 1
         self._local_indices = self._get_local_indices(size, self._world_size,
                                                       self._rank)
 
@@ -86,77 +87,35 @@ class InferenceSampler(torch.utils.data.sampler.Sampler):
     def __len__(self):
         return len(self._local_indices)
 
-def calculate_merge_ratio(mem_reduce_rate ,merge_layer, schedule="none"):
-    # this function calculate merge ratio by memory reduce rate and schedule
-    model_layer_num = 32
-    assert merge_layer < model_layer_num
-
-
-    if schedule == "none":
-        # Calculate the maximum and minimum possible mem_reduce_rate for the given merge_layer
-        max_mem_reduce_rate = 1.0 - ((merge_layer + 1) / model_layer_num)
-        min_mem_reduce_rate = 0.0
-
-        # Check if the given mem_reduce_rate is within the possible range
-        if not (min_mem_reduce_rate <= mem_reduce_rate <= max_mem_reduce_rate):
-            raise ValueError(f"mem_reduce_rate of {mem_reduce_rate} is not possible for merge_layer {merge_layer}.")
-
-        # Calculate merge_ratio based on the provided equation for the 'none' schedule
-        merge_ratio = 1.0 - (model_layer_num - model_layer_num*mem_reduce_rate - (merge_layer+1)) / (model_layer_num - (merge_layer+1))
-        
-        # Ensure merge_ratio is within the range [0, 1]
-        if not (0.0 <= merge_ratio <= 1.0):
-            raise ValueError(f"Calculated merge_ratio of {merge_ratio} is out of bounds (0 to 1).")
-
-        return merge_ratio
-    elif schedule == "constant":
-        raise NotImplementedError
-    elif schedule == "decay":
-        raise NotImplementedError
-    else:
-        raise ValueError(f"schedule {schedule} is not supported")
-
 if __name__ == '__main__':
+    args = parse_args()
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--checkpoint', type=str, default='')
-    parser.add_argument('--dataset', type=str, default='')
-    parser.add_argument('--batch-size', type=int, default=1)
-    parser.add_argument('--num-workers', type=int, default=1)
-    parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--merge-ratio', type=float, default=0.0)
-    parser.add_argument('--merge-layer', type=int, default=33)
-    parser.add_argument('--mem-reduce-rate', type=float, default=0.0)
-    parser.add_argument('--merge-method', type=str, default='weighted', choices=['weighted', 'average'])
-    parser.add_argument('--merge-schedule', type=str, default='none', choices=['none', 'constant', 'decay'])
-    parser.add_argument('--dump-feats', type=bool, default=False)
-    parser.add_argument('--dump-task', type=str, default=None)
-    parser.add_argument('--dump-feat-layer', type=int, default=33)
-    args = parser.parse_args()
+    print(f"args: {args}")
 
-    torch.distributed.init_process_group(
-        backend='nccl',
-        world_size=int(os.getenv('WORLD_SIZE', '1')),
-        rank=int(os.getenv('RANK', '0')),
-    )
+    # torch.distributed.init_process_group(
+    #     backend='nccl',
+    #     world_size=int(os.getenv('WORLD_SIZE', '1')),
+    #     rank=int(os.getenv('RANK', '0')),
+    # )
 
-    torch.cuda.set_device(int(os.getenv('LOCAL_RANK', 0)))
+    # torch.cuda.set_device(int(os.getenv('LOCAL_RANK', 0)))
 
 
     prompt = '<audio>{}</audio><|startoftranscript|><|{}|><|translate|><|{}|><|notimestamps|><|itn|>'
 
-    merge_ratio = args.merge_ratio
+    ratio = args.ratio # if mem_reduce_rate is not provided, we use ratio from args directly
     if args.mem_reduce_rate > 0:
         # we will use mem_reduce_rate if it is provided
-        merge_ratio = calculate_merge_ratio(args.mem_reduce_rate, args.merge_layer, args.merge_schedule)
-        print(f"merge_ratio = {merge_ratio} given mem_reduce_rate: {args.mem_reduce_rate} and merge_layer: {args.merge_layer} and merge_schedule: {args.merge_schedule}")
-    
+        ratio = calculate_ratio(args.mem_reduce_rate, args.method, args.perform_layer, args.schedule)
+        print(f"ratio = {ratio} given mem_reduce_rate: {args.mem_reduce_rate} and perform_layer: {args.perform_layer} and method: {args.method} and schedule: {args.schedule}")
+        args.ratio = ratio
+        
     model = AutoModelForCausalLM.from_pretrained(
             args.checkpoint, device_map='cuda', trust_remote_code=True).eval()
-    model.transformer.set_fastadasp_params(merge_ratio, 
-                                            args.merge_layer, 
-                                            args.merge_method, 
-                                            args.merge_schedule, 
+    model.transformer.set_fastadasp_params(ratio, 
+                                            args.perform_layer, 
+                                            args.method, 
+                                            args.schedule, 
                                             args.dump_feats,
                                             args.dump_task,
                                             args.dump_feat_layer)
@@ -215,30 +174,30 @@ if __name__ == '__main__':
         sources.extend(source)
         audio_paths.extend(audio_path)
 
-    torch.distributed.barrier()
+    # torch.distributed.barrier()
 
-    world_size = torch.distributed.get_world_size()
-    merged_gts = [None for _ in range(world_size)]
-    merged_sources = [None for _ in range(world_size)]
-    merged_responses = [None for _ in range(world_size)]
-    merged_audio_paths = [None for _ in range(world_size)]
-    torch.distributed.all_gather_object(merged_gts, gts)
-    torch.distributed.all_gather_object(merged_sources, sources)
-    torch.distributed.all_gather_object(merged_responses, rets)
-    torch.distributed.all_gather_object(merged_audio_paths, audio_paths)
+    # world_size = torch.distributed.get_world_size()
+    # merged_gts = [None for _ in range(world_size)]
+    # merged_sources = [None for _ in range(world_size)]
+    # merged_responses = [None for _ in range(world_size)]
+    # merged_audio_paths = [None for _ in range(world_size)]
+    # torch.distributed.all_gather_object(merged_gts, gts)
+    # torch.distributed.all_gather_object(merged_sources, sources)
+    # torch.distributed.all_gather_object(merged_responses, rets)
+    # torch.distributed.all_gather_object(merged_audio_paths, audio_paths)
 
-    merged_gts = [_ for _ in itertools.chain.from_iterable(merged_gts)]
-    merged_sources = [_ for _ in itertools.chain.from_iterable(merged_sources)]
-    merged_audio_paths = [_ for _ in itertools.chain.from_iterable(merged_audio_paths)]
-    merged_responses = [
-        _ for _ in itertools.chain.from_iterable(merged_responses)
-    ]
+    # merged_gts = [_ for _ in itertools.chain.from_iterable(merged_gts)]
+    # merged_sources = [_ for _ in itertools.chain.from_iterable(merged_sources)]
+    # merged_audio_paths = [_ for _ in itertools.chain.from_iterable(merged_audio_paths)]
+    # merged_responses = [
+    #     _ for _ in itertools.chain.from_iterable(merged_responses)
+    # ]
 
-    if torch.distributed.get_rank() == 0:
+    if True:
         print(f"Evaluating {args.dataset} ...")
 
         results = []
-        for gt, response, source, audio_path in zip(merged_gts, merged_responses, merged_sources, merged_audio_paths):
+        for gt, response, source, audio_path in zip(gts, rets, sources, audio_paths):
             results.append({
                 'gt': gt,
                 'response': response,
@@ -246,8 +205,8 @@ if __name__ == '__main__':
                 'audio_path': audio_path,
             })
         time_prefix = time.strftime('%y%m%d%H%M%S', time.localtime())
-        results_file = f'{args.dataset}_{time_prefix}.json'
-        json.dump(results, open(results_file, 'w'))
+        results_file = f'exps/{args.dataset}_{args.mem_reduce_rate}_{args.method}_{args.schedule}_{args.perform_layer}_{time_prefix}.json'
+        json.dump(results, open(results_file, 'w'), ensure_ascii=False)
         results_dict = {}
         for item in tqdm(results):
             source = item["source"]
@@ -269,6 +228,8 @@ if __name__ == '__main__':
                 hyps.append(response)
             bleu = sacrebleu.corpus_bleu(hyps,[refs], tokenize=text_lan).score
             print(f"source: {source}  cnt: {len(refs)} bleu score: {bleu:.4f}")
+            with open(results_file, 'a') as f:
+                f.write(f"\nargs: {args}\tsource: {source}\tcnt: {len(refs)}\tbleu score: {bleu:.4f}\n")
 
 
-    torch.distributed.barrier()
+    # torch.distributed.barrier()
